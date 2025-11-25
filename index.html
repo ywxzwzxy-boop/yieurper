@@ -27,61 +27,74 @@ body{
     flex-direction:column;
     justify-content:center;
     align-items:center;
-    gap:16px;
+    gap:22px;
     z-index:20;
 }
 
-/* Heart */
+/* Heart Icon */
 .heart-icon{
-    font-size:80px;
+    font-size:90px;
     color:#d4376f;
+    animation:pulse 3s infinite ease-in-out;
+}
+@keyframes pulse{
+    0%{transform:scale(.9);}
+    50%{transform:scale(1.2);}
+    100%{transform:scale(.9);}
 }
 
-/* Input flowers */
+/* Input Wrapper */
 .input-wrap{
-    position:relative;
-    width:260px;
+    width:380px;
 }
-.input-wrap img{
-    width:30px;
-    position:absolute;
-    top:50%;
-    transform:translateY(-50%);
-}
-.fl-l{ left:-20px; }
-.fl-r{ right:-20px; }
 
-/* Input */
+/* BIG INPUT — Placeholder fully visible + moved upward */
 .pin{
     width:100%;
-    padding:15px 14px;
-    border-radius:28px;
-    border:2px solid #d26b96;
+    padding:18px 25px 10px 25px; /* 🔼 top gap reduced */
+    border-radius:35px;
+    border:3px solid #d02672;
     background:white;
     text-align:center;
-    font-size:18px;
-    outline:none;
+    font-size:30px;
+    font-weight:700;
+    box-shadow:0 0 20px rgba(255,100,160,0.55);
+
+    white-space:normal;
+    overflow:visible;
+    height:auto;
+    line-height:1.3;  /* 🔼 text moved upward */
+}
+
+.pin::placeholder{
+    font-size:30px;
+    font-weight:700;
+    color:#c2185b;
+    white-space:normal;
+    line-height:1.3; /* 🔼 placeholder text stays upper */
 }
 
 /* Button */
 .btn{
-    padding:14px 30px;
+    padding:16px 35px;
     border:none;
     font-weight:bold;
-    font-size:18px;
+    font-size:22px;
     color:white;
     background:linear-gradient(140deg,#ff4f8b,#ff73a7);
     border-radius:45px;
     cursor:pointer;
+    box-shadow:0 6px 25px rgba(255,60,130,0.5);
 }
 
 .msg{
-    height:22px;
+    height:24px;
     color:#e0235a;
-    font-weight:600;
+    font-weight:700;
+    font-size:20px;
 }
 
-/* Main */
+/* Main Page */
 .main{
     display:none;
     text-align:center;
@@ -89,64 +102,82 @@ body{
 }
 
 .title{
-    font-size:48px;
+    font-size:65px;
     color:#c42664;
+    text-shadow:0 4px 18px rgba(255,60,130,0.45);
+    font-weight:800;
 }
 
 .subtitle{
-    margin-top:14px;
-    font-size:20px;
-    color:#733b52;
-    max-width:540px;
-    line-height:1.6;
+    margin-top:25px;
+    font-size:30px;
+    color:#6a2d4b;
+    max-width:700px;
+    line-height:1.8;
     margin-left:auto;
     margin-right:auto;
+    font-weight:500;
 }
 
-/* Music tap */
-.tap{
-    position:fixed;
-    inset:0;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    background:rgba(0,0,0,0.3);
-    color:white;
-    font-size:22px;
-    z-index:15;
+/* Aura Background */
+.aura{
+    position:absolute;
+    width:330px;
+    height:330px;
+    background:radial-gradient(circle,#ff9ac6,#ffd7e8,transparent);
+    border-radius:50%;
+    top:50%; left:50%;
+    transform:translate(-50%,-50%);
+    z-index:-1;
+}
+
+/* Falling Flowers (Unlock page only) */
+.flower{
+    position:absolute;
+    width:70px;
+    animation:fall 7s linear infinite;
+    opacity:.95;
+}
+@keyframes fall{
+    0%{transform:translateY(-150px) rotate(0deg);opacity:0}
+    15%{opacity:1}
+    100%{transform:translateY(105vh) rotate(360deg);opacity:0}
 }
 </style>
 </head>
 
 <body>
 
-<!-- Music -->
-<audio id="bgm" loop>
+<!-- Flowers for unlock only -->
+<div id="flowers"></div>
+
+<!-- Background Music -->
+<audio id="bgm" loop autoplay>
  <source src="bass-music.mp3" type="audio/mp3">
 </audio>
 
-<div class="tap" id="tap">🎵 Tap to Play Bass Romantic Music</div>
-
-<!-- Main -->
+<!-- MAIN PAGE -->
 <div class="main" id="main">
+    <div class="aura"></div>
+
     <div class="title">💖 আমার প্রিয় 💖</div>
+
     <div class="subtitle">
-        তোমার উপস্থিতিই আমার পৃথিবীকে রোমান্টিক করে তোলে…  
-        তুমি না থাকলে সবই ফাঁকা লাগে।
+        তোমার উপস্থিতিতে আমার পৃথিবীটা আরও নরম,  
+        আরও গোলাপি, আরও সুন্দর হয়ে যায়…  
+        তুমি হাসলেই মনে হয়—  
+        ভালোবাসা আসলেই একটা জাদু।
     </div>
 </div>
 
-<!-- Unlock -->
+<!-- UNLOCK SCREEN -->
 <div class="lock" id="lock">
 
     <div class="heart-icon">❤️</div>
 
     <div class="input-wrap">
-        <img src="https://i.imgur.com/NpYHb0F.png" class="fl-l">
-        <img src="https://i.imgur.com/NpYHb0F.png" class="fl-r">
-
         <input class="pin" id="pin" type="password"
-        placeholder="তোমার SSC Roll দিয়ে">
+        placeholder="তোমার SSC Roll দিয়ে আমার মনটা খুলে দেখ">
     </div>
 
     <button class="btn" onclick="unlock()">আমার মনটা খুলে দেখ</button>
@@ -156,12 +187,23 @@ body{
 </div>
 
 <script>
+let flowerInterval;
+
+/* Unlock Function */
 function unlock(){
     const pin=document.getElementById("pin").value;
 
     if(pin==="1234"){
-        document.getElementById("lock").style.display="none";
-        document.getElementById("main").style.display="block";
+        document.getElementById("lock").style.opacity="0";
+
+        setTimeout(()=>{
+            document.getElementById("lock").style.display="none";
+            document.getElementById("main").style.display="block";
+
+            clearInterval(flowerInterval);
+            document.getElementById("flowers").innerHTML="";
+        },400);
+
     }else{
         const m=document.getElementById("msg");
         m.textContent="ভুল রোল নাম্বার!";
@@ -169,13 +211,18 @@ function unlock(){
     }
 }
 
-/* Music */
-const tap=document.getElementById("tap");
-const music=document.getElementById("bgm");
-tap.addEventListener("click",()=>{
-    music.play().catch(()=>{});
-    tap.style.display="none";
-});
+/* Flowers for unlock screen */
+function spawnFlower(){
+    const f=document.createElement("img");
+    f.className="flower";
+    f.src="https://i.imgur.com/3aXae7Z.png";
+    f.style.left=Math.random()*100+"vw";
+    f.style.animationDuration=(5+Math.random()*5)+"s";
+    document.getElementById("flowers").appendChild(f);
+    setTimeout(()=>f.remove(),9000);
+}
+
+flowerInterval=setInterval(spawnFlower,450);
 </script>
 
 </body>
