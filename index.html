@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Romantic Unlock</title>
+
+<style>
+body{
+    margin:0;
+    height:100vh;
+    background:linear-gradient(135deg,#ffd5e8,#ffe9f3,#fff7fc);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    overflow:hidden;
+    font-family:"Poppins",Arial;
+}
+
+/* Unlock Screen */
+.lock{
+    position:fixed;
+    inset:0;
+    backdrop-filter:blur(12px);
+    background:rgba(255,230,245,0.35);
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    gap:16px;
+    z-index:20;
+}
+
+/* Heart */
+.heart-icon{
+    font-size:80px;
+    color:#d4376f;
+}
+
+/* Input flowers */
+.input-wrap{
+    position:relative;
+    width:260px;
+}
+.input-wrap img{
+    width:30px;
+    position:absolute;
+    top:50%;
+    transform:translateY(-50%);
+}
+.fl-l{ left:-20px; }
+.fl-r{ right:-20px; }
+
+/* Input */
+.pin{
+    width:100%;
+    padding:15px 14px;
+    border-radius:28px;
+    border:2px solid #d26b96;
+    background:white;
+    text-align:center;
+    font-size:18px;
+    outline:none;
+}
+
+/* Button */
+.btn{
+    padding:14px 30px;
+    border:none;
+    font-weight:bold;
+    font-size:18px;
+    color:white;
+    background:linear-gradient(140deg,#ff4f8b,#ff73a7);
+    border-radius:45px;
+    cursor:pointer;
+}
+
+.msg{
+    height:22px;
+    color:#e0235a;
+    font-weight:600;
+}
+
+/* Main */
+.main{
+    display:none;
+    text-align:center;
+    z-index:5;
+}
+
+.title{
+    font-size:48px;
+    color:#c42664;
+}
+
+.subtitle{
+    margin-top:14px;
+    font-size:20px;
+    color:#733b52;
+    max-width:540px;
+    line-height:1.6;
+    margin-left:auto;
+    margin-right:auto;
+}
+
+/* Music tap */
+.tap{
+    position:fixed;
+    inset:0;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:rgba(0,0,0,0.3);
+    color:white;
+    font-size:22px;
+    z-index:15;
+}
+</style>
+</head>
+
+<body>
+
+<!-- Music -->
+<audio id="bgm" loop>
+ <source src="bass-music.mp3" type="audio/mp3">
+</audio>
+
+<div class="tap" id="tap">🎵 Tap to Play Bass Romantic Music</div>
+
+<!-- Main -->
+<div class="main" id="main">
+    <div class="title">💖 আমার প্রিয় 💖</div>
+    <div class="subtitle">
+        তোমার উপস্থিতিই আমার পৃথিবীকে রোমান্টিক করে তোলে…  
+        তুমি না থাকলে সবই ফাঁকা লাগে।
+    </div>
+</div>
+
+<!-- Unlock -->
+<div class="lock" id="lock">
+
+    <div class="heart-icon">❤️</div>
+
+    <div class="input-wrap">
+        <img src="https://i.imgur.com/NpYHb0F.png" class="fl-l">
+        <img src="https://i.imgur.com/NpYHb0F.png" class="fl-r">
+
+        <input class="pin" id="pin" type="password"
+        placeholder="তোমার SSC Roll দিয়ে">
+    </div>
+
+    <button class="btn" onclick="unlock()">আমার মনটা খুলে দেখ</button>
+
+    <div class="msg" id="msg"></div>
+
+</div>
+
+<script>
+function unlock(){
+    const pin=document.getElementById("pin").value;
+
+    if(pin==="1234"){
+        document.getElementById("lock").style.display="none";
+        document.getElementById("main").style.display="block";
+    }else{
+        const m=document.getElementById("msg");
+        m.textContent="ভুল রোল নাম্বার!";
+        setTimeout(()=> m.textContent="", 1600);
+    }
+}
+
+/* Music */
+const tap=document.getElementById("tap");
+const music=document.getElementById("bgm");
+tap.addEventListener("click",()=>{
+    music.play().catch(()=>{});
+    tap.style.display="none";
+});
+</script>
+
+</body>
+</html>
