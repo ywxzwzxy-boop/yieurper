@@ -1,229 +1,196 @@
 <!DOCTYPE html>
-<html lang="bn">
+<html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Romantic Unlock</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Romantic Ambiance with Graffiti Glow</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            background: linear-gradient(to bottom, #1a001a, #000000); /* Darker, more mysterious background */
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            position: relative;
+            background-size: cover; /* Ensure background covers the whole area */
+        }
 
-<style>
-body{
-    margin:0;
-    height:100vh;
-    background:linear-gradient(135deg,#ffd5e8,#ffe9f3,#fff7fc);
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    overflow:hidden;
-    font-family:"Poppins",Arial;
-}
+        .flower {
+            position: absolute;
+            background-color: #ff00ff; /* Bright magenta for contrast */
+            border-radius: 50%;
+            opacity: 0;
+            animation: fall linear infinite;
+            box-shadow: 0 0 10px #ff00ff, 0 0 20px #ff00ff; /* Glowing flowers */
+        }
 
-/* Unlock Screen */
-.lock{
-    position:fixed;
-    inset:0;
-    backdrop-filter:blur(12px);
-    background:rgba(255,230,245,0.35);
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-    align-items:center;
-    gap:22px;
-    z-index:20;
-}
+        @keyframes fall {
+            0% {
+                transform: translateY(-10px) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.8;
+            }
+            100% {
+                transform: translateY(100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
 
-/* Heart Icon */
-.heart-icon{
-    font-size:90px;
-    color:#d4376f;
-    animation:pulse 3s infinite ease-in-out;
-}
-@keyframes pulse{
-    0%{transform:scale(.9);}
-    50%{transform:scale(1.2);}
-    100%{transform:scale(.9);}
-}
+        .heart-container {
+            position: relative;
+            width: 200px;
+            height: 200px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10; /* Ensure heart is above glows */
+        }
 
-/* Input Wrapper */
-.input-wrap{
-    width:380px;
-}
+        .heart {
+            position: absolute;
+            width: 120px;
+            height: 120px;
+            background-color: #ff00ff; /* Matching the bright magenta glow */
+            transform: rotate(-45deg);
+            animation: beat 1.2s infinite;
+            box-shadow: 0 0 40px #ff00ff, 0 0 80px #ff00ff, 0 0 120px #ff00ff; /* Stronger glow for the heart */
+        }
 
-/* BIG INPUT — Placeholder fully visible + moved upward */
-.pin{
-    width:100%;
-    padding:18px 25px 10px 25px; /* 🔼 top gap reduced */
-    border-radius:35px;
-    border:3px solid #d02672;
-    background:white;
-    text-align:center;
-    font-size:30px;
-    font-weight:700;
-    box-shadow:0 0 20px rgba(255,100,160,0.55);
+        .heart::before,
+        .heart::after {
+            content: '';
+            position: absolute;
+            width: 120px;
+            height: 120px;
+            background-color: #ff00ff;
+            border-radius: 50%;
+        }
 
-    white-space:normal;
-    overflow:visible;
-    height:auto;
-    line-height:1.3;  /* 🔼 text moved upward */
-}
+        .heart::before {
+            top: -60px;
+            left: 0;
+        }
 
-.pin::placeholder{
-    font-size:30px;
-    font-weight:700;
-    color:#c2185b;
-    white-space:normal;
-    line-height:1.3; /* 🔼 placeholder text stays upper */
-}
+        .heart::after {
+            top: 0;
+            left: 60px;
+        }
 
-/* Button */
-.btn{
-    padding:16px 35px;
-    border:none;
-    font-weight:bold;
-    font-size:22px;
-    color:white;
-    background:linear-gradient(140deg,#ff4f8b,#ff73a7);
-    border-radius:45px;
-    cursor:pointer;
-    box-shadow:0 6px 25px rgba(255,60,130,0.5);
-}
+        @keyframes beat {
+            0% {
+                transform: scale(1) rotate(-45deg);
+            }
+            50% {
+                transform: scale(1.1) rotate(-45deg);
+            }
+            100% {
+                transform: scale(1) rotate(-45deg);
+            }
+        }
 
-.msg{
-    height:24px;
-    color:#e0235a;
-    font-weight:700;
-    font-size:20px;
-}
+        .glow {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0;
+            animation: glow-flash linear forwards;
+            filter: blur(5px); /* Soften the glow */
+            z-index: 5; /* Place glows behind the heart */
+        }
 
-/* Main Page */
-.main{
-    display:none;
-    text-align:center;
-    z-index:5;
-}
+        @keyframes glow-flash {
+            0% {
+                opacity: 0;
+                transform: scale(0);
+            }
+            20% {
+                opacity: 0.7;
+                transform: scale(1);
+            }
+            80% {
+                opacity: 0.7;
+                transform: scale(1.2);
+            }
+            100% {
+                opacity: 0;
+                transform: scale(1.5);
+            }
+        }
 
-.title{
-    font-size:65px;
-    color:#c42664;
-    text-shadow:0 4px 18px rgba(255,60,130,0.45);
-    font-weight:800;
-}
-
-.subtitle{
-    margin-top:25px;
-    font-size:30px;
-    color:#6a2d4b;
-    max-width:700px;
-    line-height:1.8;
-    margin-left:auto;
-    margin-right:auto;
-    font-weight:500;
-}
-
-/* Aura Background */
-.aura{
-    position:absolute;
-    width:330px;
-    height:330px;
-    background:radial-gradient(circle,#ff9ac6,#ffd7e8,transparent);
-    border-radius:50%;
-    top:50%; left:50%;
-    transform:translate(-50%,-50%);
-    z-index:-1;
-}
-
-/* Falling Flowers (Unlock page only) */
-.flower{
-    position:absolute;
-    width:70px;
-    animation:fall 7s linear infinite;
-    opacity:.95;
-}
-@keyframes fall{
-    0%{transform:translateY(-150px) rotate(0deg);opacity:0}
-    15%{opacity:1}
-    100%{transform:translateY(105vh) rotate(360deg);opacity:0}
-}
-</style>
+        .message {
+            position: absolute;
+            bottom: 20px;
+            color: #ffffff; /* White text for better contrast */
+            font-size: 1.5em; /* Larger font size */
+            text-align: center;
+            width: 100%;
+            text-shadow: 0 0 10px #ff00ff, 0 0 20px #ff00ff; /* Glowing text */
+            z-index: 10;
+        }
+    </style>
 </head>
-
 <body>
-
-<!-- Flowers for unlock only -->
-<div id="flowers"></div>
-
-<!-- Background Music -->
-<audio id="bgm" loop autoplay>
- <source src="bass-music.mp3" type="audio/mp3">
-</audio>
-
-<!-- MAIN PAGE -->
-<div class="main" id="main">
-    <div class="aura"></div>
-
-    <div class="title">💖 আমার প্রিয় 💖</div>
-
-    <div class="subtitle">
-        তোমার উপস্থিতিতে আমার পৃথিবীটা আরও নরম,  
-        আরও গোলাপি, আরও সুন্দর হয়ে যায়…  
-        তুমি হাসলেই মনে হয়—  
-        ভালোবাসা আসলেই একটা জাদু।
+    <div class="heart-container">
+        <div class="heart"></div>
     </div>
-</div>
-
-<!-- UNLOCK SCREEN -->
-<div class="lock" id="lock">
-
-    <div class="heart-icon">❤️</div>
-
-    <div class="input-wrap">
-        <input class="pin" id="pin" type="password"
-        placeholder="তোমার SSC Roll দিয়ে আমার মনটা খুলে দেখ">
+    <div class="message">
+        <p>আমাদের ভালোবাসার সুন্দর মুহূর্তগুলো!</p>
     </div>
 
-    <button class="btn" onclick="unlock()">আমার মনটা খুলে দেখ</button>
+    <script>
+        const body = document.body;
+        const colors = ['#00ffff', '#ff00ff', '#ffff00', '#00ff00', '#ff0000']; // Cyan, Magenta, Yellow, Green, Red
 
-    <div class="msg" id="msg"></div>
+        function createFlower() {
+            const flower = document.createElement('div');
+            flower.classList.add('flower');
+            flower.style.left = Math.random() * 100 + 'vw';
+            flower.style.width = Math.random() * 15 + 5 + 'px';
+            flower.style.height = flower.style.width;
+            flower.style.animationDuration = Math.random() * 5 + 5 + 's';
+            flower.style.animationDelay = Math.random() * 5 + 's';
+            body.appendChild(flower);
 
-</div>
+            flower.addEventListener('animationend', () => {
+                flower.remove();
+            });
+        }
 
-<script>
-let flowerInterval;
+        // Create multiple flowers
+        for (let i = 0; i < 50; i++) {
+            createFlower();
+        }
 
-/* Unlock Function */
-function unlock(){
-    const pin=document.getElementById("pin").value;
+        // Continuously create flowers
+        setInterval(createFlower, 500);
 
-    if(pin==="1234"){
-        document.getElementById("lock").style.opacity="0";
+        function createGlow() {
+            const glow = document.createElement('div');
+            glow.classList.add('glow');
+            const randomColor = colors[Math.floor(Math.random() * colors.length)];
+            glow.style.backgroundColor = randomColor;
+            glow.style.boxShadow = `0 0 20px ${randomColor}, 0 0 40px ${randomColor}, 0 0 80px ${randomColor}`;
 
-        setTimeout(()=>{
-            document.getElementById("lock").style.display="none";
-            document.getElementById("main").style.display="block";
+            glow.style.width = Math.random() * 200 + 50 + 'px';
+            glow.style.height = glow.style.width;
+            glow.style.top = Math.random() * 100 + 'vh';
+            glow.style.left = Math.random() * 100 + 'vw';
+            glow.style.animationDuration = Math.random() * 2 + 1 + 's'; // Faster flash
+            glow.style.animationDelay = Math.random() * 2 + 's';
 
-            clearInterval(flowerInterval);
-            document.getElementById("flowers").innerHTML="";
-        },400);
+            body.appendChild(glow);
 
-    }else{
-        const m=document.getElementById("msg");
-        m.textContent="ভুল রোল নাম্বার!";
-        setTimeout(()=> m.textContent="", 1600);
-    }
-}
+            glow.addEventListener('animationend', () => {
+                glow.remove();
+            });
+        }
 
-/* Flowers for unlock screen */
-function spawnFlower(){
-    const f=document.createElement("img");
-    f.className="flower";
-    f.src="https://i.imgur.com/3aXae7Z.png";
-    f.style.left=Math.random()*100+"vw";
-    f.style.animationDuration=(5+Math.random()*5)+"s";
-    document.getElementById("flowers").appendChild(f);
-    setTimeout(()=>f.remove(),9000);
-}
-
-flowerInterval=setInterval(spawnFlower,450);
-</script>
-
+        // Continuously create glows
+        setInterval(createGlow, 300); // More frequent flashes
+    </script>
 </body>
 </html>
