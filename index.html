@@ -1,302 +1,438 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="bn">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Romantic Ambiance with Graffiti Glow and Pop-up</title>
+    <title>Love at first sight</title>
     <style>
-        body {
+        * {
             margin: 0;
-            overflow: hidden;
-            background: linear-gradient(to bottom, #1a001a, #000000); /* Darker, more mysterious background */
-            font-family: 'Arial', sans-serif;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 50%, #fecfef 100%);
+            height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            min-height: 100vh;
+            font-family: 'Arial', sans-serif;
+            overflow: hidden;
+        }
+
+        .container {
             position: relative;
-            background-size: cover;
+            width: 500px;
+            height: 500px;
         }
 
-        /* --- Flower and Fall Animation (Graffiti Style) --- */
-        .flower {
+        /* গোলাপ ফুলের স্টাইল */
+        .rose {
             position: absolute;
-            background-color: #ff00ff; /* Bright magenta for contrast */
-            border-radius: 50%;
-            opacity: 0;
-            animation: fall linear infinite;
-            box-shadow: 0 0 10px #ff00ff, 0 0 20px #ff00ff;
+            font-size: 60px;
+            animation: roseFloat 8s ease-in-out infinite;
+            filter: drop-shadow(0 0 10px rgba(255, 105, 180, 0.6));
+            z-index: 2;
         }
 
-        @keyframes fall {
+        .rose:nth-child(1) { top: 15%; left: 20%; animation-delay: 0s; }
+        .rose:nth-child(2) { top: 10%; right: 25%; animation-delay: 1s; }
+        .rose:nth-child(3) { bottom: 20%; left: 15%; animation-delay: 2s; }
+        .rose:nth-child(4) { bottom: 15%; right: 20%; animation-delay: 3s; }
+        .rose:nth-child(5) { top: 50%; left: 10%; animation-delay: 4s; }
+        .rose:nth-child(6) { top: 45%; right: 12%; animation-delay: 5s; }
+        .rose:nth-child(7) { top: 30%; left: 30%; animation-delay: 6s; }
+        .rose:nth-child(8) { bottom: 30%; right: 30%; animation-delay: 7s; }
+
+        @keyframes roseFloat {
+            0%, 100% {
+                transform: translateY(0px) rotate(0deg) scale(1);
+            }
+            25% {
+                transform: translateY(-15px) rotate(5deg) scale(1.05);
+            }
+            50% {
+                transform: translateY(-25px) rotate(-5deg) scale(1.1);
+            }
+            75% {
+                transform: translateY(-15px) rotate(3deg) scale(1.05);
+            }
+        }
+
+        /* মাঝের বড় গোলাপ */
+        .main-rose {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 120px;
+            animation: mainRosePulse 4s ease-in-out infinite;
+            filter: drop-shadow(0 0 20px rgba(255, 20, 147, 0.8));
+            z-index: 3;
+        }
+
+        @keyframes mainRosePulse {
+            0%, 100% {
+                transform: translate(-50%, -50%) scale(1) rotate(0deg);
+            }
+            50% {
+                transform: translate(-50%, -50%) scale(1.1) rotate(5deg);
+            }
+        }
+
+        /* আলোর ঝলকানি */
+        .light-beam {
+            position: absolute;
+            width: 4px;
+            height: 150px;
+            background: linear-gradient(to bottom, 
+                transparent 0%, 
+                rgba(255, 255, 255, 0.8) 50%, 
+                transparent 100%);
+            animation: lightFlash 3s linear infinite;
+            opacity: 0;
+        }
+
+        @keyframes lightFlash {
             0% {
-                transform: translateY(-10px) rotate(0deg);
+                transform: rotate(0deg) translateY(-100px);
                 opacity: 0;
             }
             10% {
+                opacity: 1;
+            }
+            20% {
                 opacity: 0.8;
             }
+            30% {
+                opacity: 0;
+            }
             100% {
-                transform: translateY(100vh) rotate(360deg);
+                transform: rotate(360deg) translateY(-100px);
                 opacity: 0;
             }
         }
 
-        /* --- Heart and Beat Animation (The Clickable Element) --- */
-        .heart-container {
-            position: relative;
-            width: 200px;
-            height: 200px;
+        /* আলোর রশ্মি */
+        .light-ray {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            background: radial-gradient(circle, 
+                rgba(255, 182, 193, 0.6) 0%,
+                rgba(255, 105, 180, 0.4) 30%,
+                transparent 70%);
+            animation: rayPulse 4s ease-in-out infinite;
+            z-index: 1;
+        }
+
+        @keyframes rayPulse {
+            0%, 100% {
+                transform: translate(-50%, -50%) scale(1);
+                opacity: 0.6;
+            }
+            50% {
+                transform: translate(-50%, -50%) scale(1.3);
+                opacity: 0.8;
+            }
+        }
+
+        /* হার্ট শেপ বাটন */
+        .heart-button {
+            position: absolute;
+            bottom: 15%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(45deg, #ff6b6b, #ff8e8e);
+            border: none;
+            width: 120px;
+            height: 120px;
+            cursor: pointer;
+            z-index: 4;
+            box-shadow: 0 15px 35px rgba(255, 107, 107, 0.6);
+            transition: all 0.4s ease;
+            font-size: 50px;
             display: flex;
             justify-content: center;
             align-items: center;
-            z-index: 10;
-            cursor: pointer; /* Indicate it's clickable */
+            color: white;
+            text-shadow: 2px 2px 10px rgba(0,0,0,0.3);
+            
+            /* হার্ট শেপ তৈরি */
+            clip-path: path('M60,30 C70,15 90,15 100,30 C110,45 100,60 80,75 C70,85 60,95 60,95 C60,95 50,85 40,75 C20,60 10,45 20,30 C30,15 50,15 60,30 Z');
         }
 
-        .heart {
+        .heart-button:hover {
+            transform: translateX(-50%) scale(1.2);
+            box-shadow: 0 20px 45px rgba(255, 107, 107, 0.8);
+            background: linear-gradient(45deg, #ff5252, #ff6b6b);
+            animation: heartBeat 0.6s ease-in-out;
+        }
+
+        .heart-button:active {
+            transform: translateX(-50%) scale(1.1);
+        }
+
+        @keyframes heartBeat {
+            0%, 100% { transform: translateX(-50%) scale(1.2); }
+            50% { transform: translateX(-50%) scale(1.3); }
+        }
+
+        /* টাইটেল */
+        .title {
             position: absolute;
-            width: 120px;
-            height: 120px;
-            background-color: #ff00ff;
-            transform: rotate(-45deg);
-            animation: beat 1.2s infinite;
-            box-shadow: 0 0 40px #ff00ff, 0 0 80px #ff00ff, 0 0 120px #ff00ff;
+            top: 8%;
+            left: 50%;
+            transform: translateX(-50%);
+            color: #d81b60;
+            font-size: 2.2em;
+            text-align: center;
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.8);
+            z-index: 4;
+            animation: titleGlow 3s ease-in-out infinite;
+            font-weight: bold;
         }
 
-        .heart::before,
-        .heart::after {
-            content: '';
-            position: absolute;
-            width: 120px;
-            height: 120px;
-            background-color: #ff00ff;
-            border-radius: 50%;
-        }
-
-        .heart::before {
-            top: -60px;
-            left: 0;
-        }
-
-        .heart::after {
-            top: 0;
-            left: 60px;
-        }
-
-        @keyframes beat {
-            0% {
-                transform: scale(1) rotate(-45deg);
+        @keyframes titleGlow {
+            0%, 100% {
+                text-shadow: 0 0 20px rgba(255, 255, 255, 0.8);
+                color: #d81b60;
             }
             50% {
-                transform: scale(1.1) rotate(-45deg);
-            }
-            100% {
-                transform: scale(1) rotate(-45deg);
+                text-shadow: 0 0 30px rgba(255, 20, 147, 1), 0 0 40px rgba(255, 255, 255, 0.9);
+                color: #ff4081;
             }
         }
 
-        /* --- Graffiti Glows --- */
-        .glow {
+        /* কবিতার লাইন */
+        .poetry-line {
             position: absolute;
-            border-radius: 50%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(255, 255, 255, 0.95);
+            padding: 20px 30px;
+            border-radius: 15px;
+            color: #d81b60;
+            font-size: 1.3em;
+            font-weight: bold;
+            text-align: center;
+            z-index: 7;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
             opacity: 0;
-            animation: glow-flash linear forwards;
-            filter: blur(5px);
+            width: 90%;
+            max-width: 450px;
+            line-height: 1.6;
+            border: 3px solid #ff6b6b;
+            animation: poetryShow 8s ease-in-out forwards;
+        }
+
+        @keyframes poetryShow {
+            0% {
+                opacity: 0;
+                transform: translateX(-50%) scale(0.8);
+                top: 20%;
+            }
+            15% {
+                opacity: 1;
+                transform: translateX(-50%) scale(1.05);
+                top: 25%;
+            }
+            20% {
+                transform: translateX(-50%) scale(1);
+                top: 25%;
+            }
+            80% {
+                opacity: 1;
+                transform: translateX(-50%) scale(1);
+                top: 25%;
+            }
+            100% {
+                opacity: 0;
+                transform: translateX(-50%) scale(0.9);
+                top: 25%;
+            }
+        }
+
+        /* ট্রেন ইমোজি */
+        .train-emoji {
+            position: absolute;
+            font-size: 60px;
+            animation: trainMove 6s ease-in-out forwards;
+            opacity: 0;
             z-index: 5;
         }
 
-        @keyframes glow-flash {
+        @keyframes trainMove {
             0% {
+                left: -100px;
                 opacity: 0;
-                transform: scale(0);
+                transform: scale(0.8);
             }
             20% {
-                opacity: 0.7;
+                opacity: 1;
+                transform: scale(1.1);
+            }
+            30% {
                 transform: scale(1);
             }
+            70% {
+                left: 60%;
+                opacity: 1;
+                transform: scale(1);
+            }
+            100% {
+                left: 60%;
+                opacity: 0;
+                transform: scale(0.8);
+            }
+        }
+
+        /* চন্দ্রমুখী ইমোজি */
+        .moon-face {
+            position: absolute;
+            font-size: 50px;
+            animation: moonSleep 8s ease-in-out forwards;
+            opacity: 0;
+            z-index: 5;
+        }
+
+        @keyframes moonSleep {
+            0%, 20% {
+                opacity: 0;
+                transform: scale(0.8) rotate(0deg);
+                right: 30%;
+                top: 40%;
+            }
+            30% {
+                opacity: 1;
+                transform: scale(1.1) rotate(5deg);
+                right: 30%;
+                top: 40%;
+            }
+            40% {
+                transform: scale(1) rotate(0deg);
+                right: 30%;
+                top: 40%;
+            }
             80% {
-                opacity: 0.7;
-                transform: scale(1.2);
+                opacity: 1;
+                transform: scale(1) rotate(0deg);
+                right: 30%;
+                top: 40%;
             }
             100% {
                 opacity: 0;
-                transform: scale(1.5);
+                transform: scale(0.8) rotate(-5deg);
+                right: 30%;
+                top: 40%;
             }
-        }
-
-        .message {
-            position: absolute;
-            bottom: 20px;
-            color: #ffffff;
-            font-size: 1.5em;
-            text-align: center;
-            width: 100%;
-            text-shadow: 0 0 10px #ff00ff, 0 0 20px #ff00ff;
-            z-index: 10;
-        }
-
-        /* --- POPUP STYLES (New) --- */
-        .popup-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.8); /* Dark, transparent background */
-            display: none; /* Initially hidden */
-            justify-content: center;
-            align-items: center;
-            z-index: 100; /* Ensure it's on top of everything */
-        }
-
-        .popup-content {
-            background-color: #1a001a; /* Dark background */
-            border: 5px solid #ff00ff; /* Glowing border */
-            border-radius: 15px;
-            padding: 40px;
-            width: 80%;
-            max-width: 500px;
-            text-align: center;
-            position: relative;
-            box-shadow: 0 0 30px #ff00ff, 0 0 60px rgba(255, 0, 255, 0.5); /* Strong glow effect */
-            animation: pulse-glow 2s infinite alternate;
-        }
-
-        @keyframes pulse-glow {
-            0% {
-                box-shadow: 0 0 20px #ff00ff, 0 0 40px rgba(255, 0, 255, 0.5);
-            }
-            100% {
-                box-shadow: 0 0 40px #ff00ff, 0 0 80px rgba(255, 0, 255, 0.8);
-            }
-        }
-
-        .popup-content h2 {
-            color: #ffff00; /* Yellow header */
-            margin-top: 0;
-            text-shadow: 0 0 5px #ffff00;
-        }
-
-        .popup-content p {
-            color: #ffffff;
-            font-size: 1.2em;
-            line-height: 1.5;
-            text-shadow: 1px 1px 2px #000000;
-        }
-
-        .close-btn {
-            position: absolute;
-            top: 10px;
-            right: 20px;
-            color: #ff00ff;
-            font-size: 30px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: color 0.3s;
-        }
-
-        .close-btn:hover {
-            color: #ffffff;
         }
     </style>
 </head>
 <body>
-    <div class="heart-container" id="heart-container">
-        <div class="heart"></div>
-    </div>
-    <div class="message">
-        <p>আমাদের ভালোবাসার সুন্দর মুহূর্তগুলো!</p>
-    </div>
+    <div class="container">
+        <!-- টাইটেল -->
+        <div class="title">💖 ট্রেন! তুমি ধীরে চল 💖</div>
 
-    <div id="romantic-popup" class="popup-overlay">
-        <div class="popup-content">
-            <span class="close-btn" id="close-popup">&times;</span>
-            <h2>তোমার জন্য...</h2>
-            <p>
-                তুমি আমার জীবনের সবচেয়ে সুন্দর কবিতা। তোমার উপস্থিতি আমার চারিদিকের অন্ধকারকে আলোকিত করে দেয়।
-                আমার হৃদয়ের স্পন্দন শুধু তোমার জন্যই বাজে। প্রতিটি ক্ষণ শুধু তোমাকেই চাই!
-            </p>
-        </div>
+        <!-- গোলাপ ফুল -->
+        <div class="rose">🌹</div>
+        <div class="rose">🌹</div>
+        <div class="rose">🌹</div>
+        <div class="rose">🌹</div>
+        <div class="rose">🌹</div>
+        <div class="rose">🌹</div>
+        <div class="rose">🌹</div>
+        <div class="rose">🌹</div>
+
+        <!-- মাঝের বড় গোলাপ -->
+        <div class="main-rose">🌹</div>
+
+        <!-- আলোর রশ্মি -->
+        <div class="light-ray"></div>
+
+        <!-- হার্ট শেপ বাটন -->
+        <button class="heart-button" onclick="showPoetry()">
+            💖
+        </button>
     </div>
 
     <script>
-        const body = document.body;
-        const colors = ['#00ffff', '#ff00ff', '#ffff00', '#00ff00', '#ff0000'];
-        
-        // Popup Elements
-        const heartContainer = document.getElementById('heart-container');
-        const romanticPopup = document.getElementById('romantic-popup');
-        const closePopupBtn = document.getElementById('close-popup');
-
-        // --- Flower Logic (Unchanged) ---
-        function createFlower() {
-            const flower = document.createElement('div');
-            flower.classList.add('flower');
-            flower.style.left = Math.random() * 100 + 'vw';
-            flower.style.width = Math.random() * 15 + 5 + 'px';
-            flower.style.height = flower.style.width;
-            flower.style.animationDuration = Math.random() * 5 + 5 + 's';
-            flower.style.animationDelay = Math.random() * 5 + 's';
-            body.appendChild(flower);
-
-            flower.addEventListener('animationend', () => {
-                flower.remove();
-            });
-        }
-
-        for (let i = 0; i < 50; i++) {
-            createFlower();
-        }
-
-        setInterval(createFlower, 500);
-
-        // --- Glow Logic (Unchanged) ---
-        function createGlow() {
-            const glow = document.createElement('div');
-            glow.classList.add('glow');
-            const randomColor = colors[Math.floor(Math.random() * colors.length)];
-            glow.style.backgroundColor = randomColor;
-            glow.style.boxShadow = `0 0 20px ${randomColor}, 0 0 40px ${randomColor}, 0 0 80px ${randomColor}`;
-
-            glow.style.width = Math.random() * 200 + 50 + 'px';
-            glow.style.height = glow.style.width;
-            glow.style.top = Math.random() * 100 + 'vh';
-            glow.style.left = Math.random() * 100 + 'vw';
-            glow.style.animationDuration = Math.random() * 2 + 1 + 's';
-            glow.style.animationDelay = Math.random() * 2 + 's';
-
-            body.appendChild(glow);
-
-            glow.addEventListener('animationend', () => {
-                glow.remove();
-            });
-        }
-
-        setInterval(createGlow, 300);
-
-        // --- POPUP Logic (New) ---
-        function showPopup() {
-            romanticPopup.style.display = 'flex';
-        }
-
-        function hidePopup() {
-            romanticPopup.style.display = 'none';
-        }
-
-        // Event listeners for the heart click
-        heartContainer.addEventListener('click', showPopup);
-        
-        // Event listener for the close button
-        closePopupBtn.addEventListener('click', hidePopup);
-
-        // Event listener to close when clicking outside the pop-up content
-        romanticPopup.addEventListener('click', function(event) {
-            // Check if the click occurred directly on the overlay, not on the content
-            if (event.target === romanticPopup) {
-                hidePopup();
+        // আলোর ঝলকানি তৈরি
+        function createLightBeams() {
+            const container = document.querySelector('.container');
+            const beams = 24;
+            
+            for (let i = 0; i < beams; i++) {
+                const beam = document.createElement('div');
+                beam.className = 'light-beam';
+                beam.style.left = '50%';
+                beam.style.top = '50%';
+                beam.style.transformOrigin = 'center bottom';
+                beam.style.animationDelay = (i * (3 / beams)) + 's';
+                container.appendChild(beam);
             }
-        });
+        }
+
+        // কবিতা দেখানো ফাংশন
+        function showPoetry() {
+            const container = document.querySelector('.container');
+            
+            // বাটন এনিমেশন
+            const button = document.querySelector('.heart-button');
+            button.innerHTML = '💝';
+            button.style.background = 'linear-gradient(45deg, #ff4081, #ff80ab)';
+            button.style.transform = 'translateX(-50%) scale(1.3)';
+            
+            setTimeout(() => {
+                button.innerHTML = '💖';
+                button.style.background = 'linear-gradient(45deg, #ff6b6b, #ff8e8e)';
+                button.style.transform = 'translateX(-50%) scale(1.2)';
+            }, 1000);
+
+            setTimeout(() => {
+                button.style.transform = 'translateX(-50%) scale(1)';
+            }, 2000);
+
+            // কবিতার লাইন তৈরি
+            const poetryDiv = document.createElement('div');
+            poetryDiv.className = 'poetry-line';
+            poetryDiv.innerHTML = `
+                "ট্রেন তুমি এসো ধীরে ধীরে,<br>
+                চন্দ্রমুখীর ঘুমে যেন না লাগে ভয়ে।<br>
+                তোমারি পথের ধারে আছে সে মধুময়,<br>
+                তোমার গর্জনে যেন ভেঙে না স্বপ্নের আবয়।"
+            `;
+            container.appendChild(poetryDiv);
+
+            // ট্রেন ইমোজি তৈরি
+            const train = document.createElement('div');
+            train.className = 'train-emoji';
+            train.innerHTML = '🚂';
+            container.appendChild(train);
+
+            // চন্দ্রমুখী ইমোজি তৈরি
+            const moonFace = document.createElement('div');
+            moonFace.className = 'moon-face';
+            moonFace.innerHTML = '🌙😴';
+            container.appendChild(moonFace);
+
+            // কবিতা রিমুভ করা
+            setTimeout(() => {
+                poetryDiv.remove();
+                train.remove();
+                moonFace.remove();
+            }, 8000);
+        }
+
+        // পেইজ লোড হলে ইফেক্ট শুরু
+        window.onload = function() {
+            createLightBeams();
+        }
     </script>
 </body>
 </html>
